@@ -43,7 +43,7 @@ function AnimatedSection({ children, className, delay = 0 }) {
 
 function DisclosureCard({ icon: Icon, title, children, color }) {
   return (
-    <div className="bg-white dark:bg-navy-800 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-navy-700 card-hover h-[420px] flex flex-col">
+    <div className="bg-white dark:bg-navy-800 rounded-2xl p-6 lg:p-8 border border-gray-100 dark:border-navy-700 card-hover h-[360px] sm:h-[420px] flex flex-col">
       <div className="flex items-center gap-4 mb-6">
         <div className={`w-12 h-12 bg-gradient-to-br ${color} rounded-xl flex items-center justify-center shadow-lg`}>
           <Icon className="text-white text-xl" />
@@ -146,7 +146,7 @@ export default function MandatoryDisclosure() {
           <AnimatedSection delay={0.2}>
             <DisclosureCard icon={FaChalkboardTeacher} title="Teaching Staff" color="from-purple-400 to-purple-600">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[320px] text-sm">
+                <table className="w-full min-w-[280px] text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 dark:border-navy-700">
                       <th className="text-left py-3 text-gray-500 dark:text-gray-400 font-medium">Designation</th>
@@ -171,7 +171,7 @@ export default function MandatoryDisclosure() {
           <AnimatedSection delay={0.1}>
             <DisclosureCard icon={FaUsers} title="Non-Teaching Staff" color="from-orange-400 to-orange-600">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[320px] text-sm">
+                <table className="w-full min-w-[280px] text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 dark:border-navy-700">
                       <th className="text-left py-3 text-gray-500 dark:text-gray-400 font-medium">Designation</th>
@@ -199,14 +199,14 @@ export default function MandatoryDisclosure() {
                 *Fee structure is subject to revision. All amounts in INR.
               </p>
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[480px] text-sm">
+                <table className="w-full min-w-[360px] text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b border-gray-200 dark:border-navy-700">
-                      <th className="text-left py-3 text-gray-500 dark:text-gray-400 font-medium">Class</th>
-                      <th className="text-center py-3 text-gray-500 dark:text-gray-400 font-medium">Admission</th>
-                      <th className="text-center py-3 text-gray-500 dark:text-gray-400 font-medium">Tuition/mo</th>
-                      <th className="text-center py-3 text-gray-500 dark:text-gray-400 font-medium">Annual</th>
-                      <th className="text-center py-3 text-gray-500 dark:text-gray-400 font-medium">Total</th>
+                      <th className="text-left py-2 sm:py-3 text-gray-500 dark:text-gray-400 font-medium text-[10px] sm:text-sm">Class</th>
+                      <th className="text-center py-2 sm:py-3 text-gray-500 dark:text-gray-400 font-medium text-[10px] sm:text-sm">Admission</th>
+                      <th className="text-center py-2 sm:py-3 text-gray-500 dark:text-gray-400 font-medium text-[10px] sm:text-sm">Tuition/mo</th>
+                      <th className="text-center py-2 sm:py-3 text-gray-500 dark:text-gray-400 font-medium text-[10px] sm:text-sm">Annual</th>
+                      <th className="text-center py-2 sm:py-3 text-gray-500 dark:text-gray-400 font-medium text-[10px] sm:text-sm">Total</th>
                     </tr>
                   </thead>
                   <tbody>

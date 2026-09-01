@@ -106,3 +106,10 @@
 .toast-enter {
   animation: slideIn 0.3s ease-out;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

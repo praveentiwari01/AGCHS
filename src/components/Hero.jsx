@@ -35,17 +35,17 @@ export default function Hero() {
 
       {/* Floating shapes */}
       <motion.div
-        className="absolute top-1/4 left-[15%] w-4 h-4 bg-gold-400 rounded-full"
+        className="hidden sm:block absolute top-1/4 left-[15%] w-4 h-4 bg-gold-400 rounded-full"
         animate={{ y: [-10, 10, -10] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute top-1/3 right-[20%] w-6 h-6 bg-navy-300 rounded-full"
+        className="hidden sm:block absolute top-1/3 right-[20%] w-6 h-6 bg-navy-300 rounded-full"
         animate={{ y: [10, -10, 10] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute bottom-1/4 left-[25%] w-3 h-3 bg-gold-500 rounded-full"
+        className="hidden sm:block absolute bottom-1/4 left-[25%] w-3 h-3 bg-gold-500 rounded-full"
         animate={{ y: [-8, 8, -8] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
       />
@@ -68,7 +68,7 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight mb-6"
               variants={fadeUp}
               initial="hidden"
               animate="visible"
@@ -101,14 +101,14 @@ export default function Hero() {
               custom={3}
             >
               <motion.button
-                className="px-8 py-4 bg-navy-500 text-white rounded-xl font-semibold text-sm flex items-center gap-2 hover:bg-navy-600 shadow-lg shadow-navy-500/30 transition-all duration-300"
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-navy-500 text-white rounded-xl font-semibold text-sm flex items-center gap-2 hover:bg-navy-600 shadow-lg shadow-navy-500/30 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FaGraduationCap /> Explore More <FaArrowRight />
               </motion.button>
               <motion.button
-                className="px-8 py-4 border-2 border-navy-500 dark:border-gold-400 text-navy-500 dark:text-gold-400 rounded-xl font-semibold text-sm flex items-center gap-2 hover:bg-navy-500 hover:text-white dark:hover:bg-gold-400 dark:hover:text-navy-900 transition-all duration-300"
+                className="px-6 py-3 sm:px-8 sm:py-4 border-2 border-navy-500 dark:border-gold-400 text-navy-500 dark:text-gold-400 rounded-xl font-semibold text-sm flex items-center gap-2 hover:bg-navy-500 hover:text-white dark:hover:bg-gold-400 dark:hover:text-navy-900 transition-all duration-300"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -118,7 +118,7 @@ export default function Hero() {
 
             {/* Stats row */}
             <motion.div
-              className="flex gap-8 mt-12 pt-8 border-t border-gray-200 dark:border-navy-700"
+              className="flex gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 dark:border-navy-700"
               variants={fadeUp}
               initial="hidden"
               animate="visible"

@@ -74,7 +74,7 @@ export default function Statistics() {
                 <div className="w-14 h-14 mx-auto mb-4 bg-white/20 rounded-xl flex items-center justify-center">
                   <IconComp className="text-gold-400 text-2xl" />
                 </div>
-                <p className="text-3xl sm:text-4xl font-bold text-white mb-1">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-1">
                   <Counter end={stat.value} suffix={stat.suffix} inView={inView} />
                 </p>
                 <p className="text-sm text-white/80 font-medium">{stat.label}</p>

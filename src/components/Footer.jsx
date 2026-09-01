@@ -55,7 +55,7 @@ export default function Footer() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-12">
           {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -165,7 +165,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Assembly of God Church High School Badkadih. All
             rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-xs text-white/40">
+          <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2 sm:gap-4 text-xs text-white/40">
             <a href="#/disclosure" onClick={(e) => { e.preventDefault(); navigate('/disclosure'); }} className="hover:text-gold-400 transition-colors">
               Mandatory Disclosure
             </a>

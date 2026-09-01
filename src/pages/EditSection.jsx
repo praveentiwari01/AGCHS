@@ -64,7 +64,7 @@ function TableEditor({ data, onChange, columns }) {
   return (
     <div className="space-y-4">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table className="w-full text-sm min-w-[500px]">
           <thead>
             <tr className="border-b border-gray-200 dark:border-navy-700">
               {columns.map((col) => (
@@ -381,7 +381,7 @@ export default function EditSection() {
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
-            className="fixed top-24 right-4 sm:right-6 z-[70] max-w-sm"
+            className="fixed top-24 right-4 sm:right-6 z-[70] max-w-[calc(100vw-2rem)] sm:max-w-sm"
           >
             <div className="bg-white dark:bg-navy-800 rounded-xl shadow-2xl border border-green-200 dark:border-green-500/30 p-4 flex items-start gap-3">
               <FaCheckCircle className="text-green-500 text-xl mt-0.5 shrink-0" />
@@ -421,7 +421,7 @@ export default function EditSection() {
             <motion.button
               onClick={handleSave}
               disabled={saving}
-              className={`px-6 py-2 text-sm font-medium text-white gold-gradient rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 ${saving ? 'opacity-60 cursor-not-allowed' : ''}`}
+              className={`px-4 sm:px-6 py-2 text-sm font-medium text-white gold-gradient rounded-lg shadow-lg hover:shadow-xl transition-all flex items-center gap-2 ${saving ? 'opacity-60 cursor-not-allowed' : ''}`}
               whileHover={saving ? {} : { scale: 1.02 }}
               whileTap={saving ? {} : { scale: 0.98 }}
             >

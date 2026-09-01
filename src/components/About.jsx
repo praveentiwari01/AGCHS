@@ -51,7 +51,7 @@ export default function About() {
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
           <AnimatedSection>
-            <div className="relative">
+            <div className="relative overflow-hidden">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80"
@@ -61,11 +61,11 @@ export default function About() {
               </div>
               {/* Experience badge */}
               <motion.div
-                className="absolute -bottom-6 -right-6 w-28 h-28 gold-gradient rounded-2xl flex flex-col items-center justify-center shadow-xl text-white"
+                className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 w-20 h-20 sm:w-28 sm:h-28 gold-gradient rounded-2xl flex flex-col items-center justify-center shadow-xl text-white"
                 animate={{ rotate: [0, 5, 0, -5, 0] }}
                 transition={{ duration: 6, repeat: Infinity }}
               >
-                <span className="text-3xl font-bold">35+</span>
+                <span className="text-2xl sm:text-3xl font-bold">35+</span>
                 <span className="text-[10px] font-medium">Years</span>
               </motion.div>
             </div>
@@ -90,7 +90,7 @@ export default function About() {
                 full potential. We believe in shaping not just scholars, but
                 responsible citizens with strong values.
               </p>
-              <div className="flex items-center gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-4">
                 <div className="flex -space-x-2">
                   {[1, 2, 3, 4].map((i) => (
                     <div
@@ -112,7 +112,7 @@ export default function About() {
         {/* Mission & Vision */}
         <div
           ref={ref}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
         >
           {[
             {
@@ -185,7 +185,7 @@ export default function About() {
                 </p>
                 <div>
                   <h4 className="text-white font-bold text-lg">
-                    Mahasagari Toppo
+                    Mahasagari Toppo~
                   </h4>
                   <p className="text-gold-400 text-sm">Principal</p>
                 </div>

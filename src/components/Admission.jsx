@@ -117,7 +117,7 @@ export default function Admission() {
 
           {/* Right - Apply Card */}
           <motion.div
-            className="bg-white dark:bg-navy-900 rounded-2xl p-8 lg:p-10 shadow-xl border border-gray-100 dark:border-navy-700 sticky top-28"
+            className="bg-white dark:bg-navy-900 rounded-2xl p-8 lg:p-10 shadow-xl border border-gray-100 dark:border-navy-700 md:sticky top-28"
             variants={fadeUp}
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}

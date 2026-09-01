@@ -15,10 +15,8 @@ import {
   FaPhoneAlt,
   FaClipboardList,
   FaSignOutAlt,
-  FaUndo,
 } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
-import { useData } from '../context/DataContext';
 
 const sections = [
   { key: 'schoolProfile', title: 'School Profile', desc: 'Name, affiliation, address, contact', icon: FaSchool, color: 'from-navy-500 to-navy-700' },
@@ -38,7 +36,6 @@ const sections = [
 
 export default function AdminDashboard() {
   const { logout } = useAuth();
-  const { resetToDefault } = useData();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -46,17 +43,11 @@ export default function AdminDashboard() {
     navigate('/');
   };
 
-  const handleReset = () => {
-    if (window.confirm('Reset ALL data to defaults? This cannot be undone.')) {
-      resetToDefault();
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-900">
       {/* Header */}
       <header className="bg-white dark:bg-navy-800 border-b border-gray-200 dark:border-navy-700 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg flex items-center justify-center">
               <FaSchool className="text-white" />
@@ -66,24 +57,18 @@ export default function AdminDashboard() {
               <p className="text-xs text-gray-500 dark:text-gray-400">AGCHS Badkadih</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="#/"
-              className="px-4 py-2 text-sm font-medium text-navy-500 dark:text-gold-400 border border-navy-500 dark:border-gold-400 rounded-lg hover:bg-navy-50 dark:hover:bg-navy-800 transition-colors"
+              className="inline-flex px-4 py-2 text-sm font-medium text-navy-500 dark:text-gold-400 border border-navy-500 dark:border-gold-400 rounded-lg hover:bg-navy-50 dark:hover:bg-navy-800 transition-colors"
             >
               View Site
             </a>
             <button
-              onClick={handleReset}
-              className="px-4 py-2 text-sm font-medium text-red-600 border border-red-300 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors flex items-center gap-2"
-            >
-              <FaUndo /> Reset All
-            </button>
-            <button
               onClick={handleLogout}
-              className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
+              className="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2"
             >
-              <FaSignOutAlt /> Logout
+              <FaSignOutAlt /> <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>

@@ -148,7 +148,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white dark:bg-navy-900 border-t dark:border-navy-700 shadow-xl overflow-hidden"
           >
-            <div className="px-4 py-4 space-y-2">
+            <div className="px-4 py-4 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
@@ -159,7 +159,7 @@ export default function Navbar({ darkMode, setDarkMode }) {
                   {link.name}
                 </a>
               ))}
-              <div className="flex gap-2 pt-2">
+              <div className="flex flex-col sm:flex-row gap-2 pt-2">
                 {isAdmin ? (
                   <button
                     onClick={() => { navigate('/admin'); setMobileOpen(false); }}

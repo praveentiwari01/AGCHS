@@ -86,7 +86,7 @@ export default function Gallery() {
                   <FaSearch className="text-white text-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-navy-900/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-white text-sm font-medium">{image.title}</p>
+                  <p className="text-white text-sm font-medium truncate">{image.title}</p>
                 </div>
               </motion.div>
             ))}
@@ -123,7 +123,7 @@ export default function Gallery() {
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             />
-            <p className="absolute bottom-8 text-white text-lg font-medium">
+            <p className="absolute bottom-4 sm:bottom-8 text-white text-sm sm:text-lg font-medium max-w-[90vw] text-center truncate">
               {selectedImage.title}
             </p>
           </motion.div>

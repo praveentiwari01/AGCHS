@@ -150,7 +150,7 @@ export default function Contact({ setToast }) {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     required
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-navy-600 bg-white dark:bg-navy-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-navy-500 dark:focus:ring-gold-400 focus:border-transparent transition-all text-sm"
+                    className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-gray-200 dark:border-navy-600 bg-white dark:bg-navy-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-navy-500 dark:focus:ring-gold-400 focus:border-transparent transition-all text-sm"
                   />
                 </div>
                 <div>
@@ -160,7 +160,7 @@ export default function Contact({ setToast }) {
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     required
-                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-navy-600 bg-white dark:bg-navy-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-navy-500 dark:focus:ring-gold-400 focus:border-transparent transition-all text-sm"
+                    className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-gray-200 dark:border-navy-600 bg-white dark:bg-navy-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-navy-500 dark:focus:ring-gold-400 focus:border-transparent transition-all text-sm"
                   />
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default function Contact({ setToast }) {
 
         {/* Map */}
         <motion.div
-          className="mt-12 rounded-2xl overflow-hidden shadow-xl h-64 lg:h-80"
+          className="mt-8 sm:mt-12 rounded-2xl overflow-hidden shadow-xl h-48 sm:h-64 lg:h-80"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
