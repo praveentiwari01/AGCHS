@@ -1,0 +1,199 @@
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import {
+  FaBookOpen,
+  FaBullseye,
+  FaStar,
+  FaQuoteLeft,
+  FaGraduationCap,
+} from 'react-icons/fa';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+function AnimatedSection({ children, className }) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      variants={fadeUp}
+      initial="hidden"
+      animate={inView ? 'visible' : 'hidden'}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export default function About() {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  return (
+    <section id="about" className="py-20 lg:py-28 bg-white dark:bg-navy-900 relative">
+      {/* Decorative */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-navy-50 dark:bg-navy-800 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-gold-50 dark:bg-navy-800 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <AnimatedSection className="text-center mb-16">
+          <span className="text-gold-500 font-semibold text-sm uppercase tracking-widest">
+            About Us
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-500 dark:text-white mt-3">
+            Know Our{' '}
+            <span className="gradient-text">School</span>
+          </h2>
+          <div className="w-20 h-1 gold-gradient rounded-full mx-auto mt-4" />
+        </AnimatedSection>
+
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-20">
+          <AnimatedSection>
+            <div className="relative">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80"
+                  alt="School Building"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Experience badge */}
+              <motion.div
+                className="absolute -bottom-6 -right-6 w-28 h-28 gold-gradient rounded-2xl flex flex-col items-center justify-center shadow-xl text-white"
+                animate={{ rotate: [0, 5, 0, -5, 0] }}
+                transition={{ duration: 6, repeat: Infinity }}
+              >
+                <span className="text-3xl font-bold">35+</span>
+                <span className="text-[10px] font-medium">Years</span>
+              </motion.div>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div className="space-y-6">
+              <h3 className="text-2xl sm:text-3xl font-bold text-navy-500 dark:text-white">
+                A Legacy of{' '}
+                <span className="text-gold-500">Excellence & Faith</span>
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Founded in 1985, Assembly of God Church High School Badkadih has
+                been a beacon of quality education in the region. Affiliated with
+                the Jharkhand Academic Council (JAC), our school provides a
+                holistic learning experience combining academic rigor with moral
+                and spiritual development.
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Our dedicated faculty, state-of-the-art facilities, and
+                nurturing environment ensure that every student reaches their
+                full potential. We believe in shaping not just scholars, but
+                responsible citizens with strong values.
+              </p>
+              <div className="flex items-center gap-4 pt-4">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div
+                      key={i}
+                      className="w-10 h-10 rounded-full border-2 border-white dark:border-navy-900 bg-navy-100 dark:bg-navy-700 flex items-center justify-center text-xs font-bold text-navy-500 dark:text-gold-400"
+                    >
+                      {String.fromCharCode(64 + i)}
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  50+ Dedicated Teachers
+                </p>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+
+        {/* Mission & Vision */}
+        <div
+          ref={ref}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20"
+        >
+          {[
+            {
+              icon: FaBullseye,
+              title: 'Our Mission',
+              desc: 'To provide quality education rooted in Christian values, fostering academic excellence, character development, and service to community.',
+              color: 'from-navy-500 to-navy-700',
+              bg: 'bg-navy-50 dark:bg-navy-800/50',
+            },
+            {
+              icon: FaStar,
+              title: 'Our Vision',
+              desc: 'To be a leading educational institution that nurtures future leaders equipped with knowledge, skills, and moral integrity.',
+              color: 'from-gold-400 to-gold-600',
+              bg: 'bg-gold-50 dark:bg-gold-500/10',
+            },
+            {
+              icon: FaGraduationCap,
+              title: 'Academic Excellence',
+              desc: 'Consistent top results in JAC board examinations with a focus on STEM, humanities, and co-curricular development.',
+              color: 'from-green-400 to-green-600',
+              bg: 'bg-green-50 dark:bg-green-500/10',
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={item.title}
+              className={`${item.bg} rounded-2xl p-8 border border-gray-100 dark:border-navy-700 card-hover`}
+              variants={fadeUp}
+              initial="hidden"
+              animate={inView ? 'visible' : 'hidden'}
+              transition={{ delay: i * 0.15 }}
+            >
+              <div
+                className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-5 shadow-lg`}
+              >
+                <item.icon className="text-white text-xl" />
+              </div>
+              <h3 className="text-lg font-bold text-navy-500 dark:text-white mb-3">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                {item.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Principal Message */}
+        <AnimatedSection>
+          <div className="relative bg-gradient-to-br from-navy-500 to-navy-700 dark:from-navy-800 dark:to-navy-900 rounded-2xl p-8 lg:p-12 overflow-hidden">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-gold-400/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full blur-2xl" />
+
+            <div className="relative flex flex-col lg:flex-row gap-8 items-center">
+              <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl overflow-hidden border-4 border-gold-400 shadow-xl shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80"
+                  alt="Principal"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <FaQuoteLeft className="text-gold-400 text-3xl mb-4 opacity-60" />
+                <p className="text-white/90 text-base lg:text-lg leading-relaxed mb-6 italic">
+                  "At AGCHS Badkadih, we believe every child is unique and
+                  possesses immense potential. Our mission is to create an
+                  environment where students discover their strengths, develop
+                  critical thinking, and grow into compassionate leaders who
+                  will make a positive difference in society."
+                </p>
+                <div>
+                  <h4 className="text-white font-bold text-lg">
+                    Mahasagari Toppo
+                  </h4>
+                  <p className="text-gold-400 text-sm">Principal</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+      </div>
+    </section>
+  );
+}
