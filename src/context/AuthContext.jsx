@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
-const DEFAULT_PASSWORD = 'admin123';
+const DEFAULT_PASSWORD = 'admin@agchs124';
 
 export function AuthProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(() => {
