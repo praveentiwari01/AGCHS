@@ -1,23 +1,33 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaLock, FaEye, FaEyeSlash, FaSchool } from 'react-icons/fa';
+import { FaLock, FaEye, FaEyeSlash, FaSchool, FaEnvelope } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 
 export default function AdminLogin() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (login(password)) {
+    setSubmitting(true);
+    try {
+      await login(email, password);
       navigate('/admin');
-    } else {
-      setError('Invalid password. Try again.');
+    } catch (err) {
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+        setError('Invalid email or password. Try again.');
+      } else {
+        setError('Login failed. Please try again.');
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -43,7 +53,24 @@ export default function AdminLogin() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-white/80 mb-2">
-                Admin Password
+                Email
+              </label>
+              <div className="relative">
+                <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-sm" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter admin email"
+                  className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:border-transparent transition-all text-sm"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-2">
+                Password
               </label>
               <div className="relative">
                 <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40 text-sm" />
@@ -77,17 +104,14 @@ export default function AdminLogin() {
 
             <motion.button
               type="submit"
-              className="w-full py-3.5 gold-gradient text-navy-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              disabled={submitting}
+              className={`w-full py-3.5 gold-gradient text-navy-900 font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 ${submitting ? 'opacity-60 cursor-not-allowed' : ''}`}
+              whileHover={submitting ? {} : { scale: 1.02 }}
+              whileTap={submitting ? {} : { scale: 0.98 }}
             >
-              Login
+              {submitting ? 'Logging in...' : 'Login'}
             </motion.button>
           </form>
-
-          <p className="text-center text-xs text-white/40 mt-6">
-            Default password: admin123
-          </p>
 
           <div className="mt-6 pt-6 border-t border-white/10 text-center">
             <a
