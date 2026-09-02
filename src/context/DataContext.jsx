@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { ref, get, set } from 'firebase/database';
 import { db } from '../config/firebase';
 import defaultData from '../data/defaultData';
@@ -8,10 +8,31 @@ const DataContext = createContext(null);
 const STORAGE_KEY = 'schoolData';
 const FIREBASE_PATH = 'schoolData';
 
+function saveToLocal(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (error) {
+    console.warn('Failed to save to localStorage:', error);
+  }
+}
+
+function loadFromLocal() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch {
+    // ignore parse errors
+  }
+  return null;
+}
+
 export function DataProvider({ children }) {
   const [schoolData, setSchoolData] = useState(defaultData);
   const [loading, setLoading] = useState(true);
   const [firebaseAvailable, setFirebaseAvailable] = useState(true);
+  const isInitialLoad = useRef(true);
 
   useEffect(() => {
     const initializeData = async () => {
@@ -22,11 +43,10 @@ export function DataProvider({ children }) {
         if (snapshot.exists()) {
           const firebaseData = snapshot.val();
           setSchoolData({ ...defaultData, ...firebaseData });
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(firebaseData));
+          saveToLocal(firebaseData);
         } else {
-          const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            const localData = JSON.parse(saved);
+          const localData = loadFromLocal();
+          if (localData) {
             setSchoolData({ ...defaultData, ...localData });
             await set(dbRef, localData);
           } else {
@@ -36,15 +56,12 @@ export function DataProvider({ children }) {
       } catch (error) {
         console.warn('Firebase unavailable, using localStorage:', error);
         setFirebaseAvailable(false);
-        try {
-          const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
-            setSchoolData({ ...defaultData, ...JSON.parse(saved) });
-          }
-        } catch {
-          // ignore parse errors
+        const localData = loadFromLocal();
+        if (localData) {
+          setSchoolData({ ...defaultData, ...localData });
         }
       } finally {
+        isInitialLoad.current = false;
         setLoading(false);
       }
     };
@@ -52,30 +69,29 @@ export function DataProvider({ children }) {
     initializeData();
   }, []);
 
-  const updateSection = useCallback(async (sectionKey, newData) => {
-    const updatedData = (prev) => ({
+  useEffect(() => {
+    if (isInitialLoad.current || loading) return;
+
+    saveToLocal(schoolData);
+
+    if (firebaseAvailable) {
+      const dbRef = ref(db, FIREBASE_PATH);
+      set(dbRef, schoolData).catch((error) => {
+        console.error('Failed to save to Firebase:', error);
+      });
+    }
+  }, [schoolData, firebaseAvailable, loading]);
+
+  const updateSection = useCallback((sectionKey, newData) => {
+    setSchoolData((prev) => ({
       ...prev,
       [sectionKey]: newData,
-    });
-
-    setSchoolData((prev) => {
-      const next = updatedData(prev);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-
-      if (firebaseAvailable) {
-        const dbRef = ref(db, FIREBASE_PATH);
-        set(dbRef, next).catch((error) => {
-          console.error('Failed to save to Firebase:', error);
-        });
-      }
-
-      return next;
-    });
-  }, [firebaseAvailable]);
+    }));
+  }, []);
 
   const resetToDefault = useCallback(async () => {
     setSchoolData(defaultData);
-    localStorage.removeItem(STORAGE_KEY);
+    saveToLocal(defaultData);
 
     if (firebaseAvailable) {
       try {
@@ -87,24 +103,12 @@ export function DataProvider({ children }) {
     }
   }, [firebaseAvailable]);
 
-  const resetSection = useCallback(async (sectionKey) => {
-    setSchoolData((prev) => {
-      const next = {
-        ...prev,
-        [sectionKey]: defaultData[sectionKey],
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-
-      if (firebaseAvailable) {
-        const dbRef = ref(db, FIREBASE_PATH);
-        set(dbRef, next).catch((error) => {
-          console.error('Failed to save to Firebase:', error);
-        });
-      }
-
-      return next;
-    });
-  }, [firebaseAvailable]);
+  const resetSection = useCallback((sectionKey) => {
+    setSchoolData((prev) => ({
+      ...prev,
+      [sectionKey]: defaultData[sectionKey],
+    }));
+  }, []);
 
   return (
     <DataContext.Provider value={{ schoolData, updateSection, resetToDefault, resetSection, loading }}>

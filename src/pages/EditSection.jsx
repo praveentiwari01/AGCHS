@@ -360,7 +360,8 @@ export default function EditSection() {
       updateSection(section, localData);
       setToast({ show: true, message: `${meta.title} saved successfully!` });
       setTimeout(() => navigate('/admin'), 1500);
-    } catch {
+    } catch (error) {
+      console.error('Save failed:', error);
       setToast({ show: true, message: `Failed to save ${meta.title}. Please try again.` });
       setSaving(false);
     }
