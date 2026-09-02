@@ -10,6 +10,7 @@ import {
   FaYoutube,
   FaTwitter,
 } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -18,6 +19,8 @@ const fadeUp = {
 
 export default function Contact({ setToast }) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const { schoolData } = useData();
+  const { contactInfo } = schoolData;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +28,34 @@ export default function Contact({ setToast }) {
     setForm({ name: '', email: '', phone: '', message: '' });
     setTimeout(() => setToast({ show: false, message: '' }), 4000);
   };
+
+  const contactCards = [
+    {
+      icon: FaMapMarkerAlt,
+      title: 'Address',
+      content: contactInfo.address,
+      color: 'from-red-400 to-red-600',
+    },
+    {
+      icon: FaPhone,
+      title: 'Phone',
+      content: `${contactInfo.phone1}\n${contactInfo.phone2}`,
+      color: 'from-green-400 to-green-600',
+    },
+    {
+      icon: FaEnvelope,
+      title: 'Email',
+      content: `${contactInfo.email1}\n${contactInfo.email2}`,
+      color: 'from-blue-400 to-blue-600',
+    },
+  ];
+
+  const socialLinks = [
+    { icon: FaFacebook, href: contactInfo.facebook, color: 'hover:bg-blue-600' },
+    { icon: FaInstagram, href: contactInfo.instagram, color: 'hover:bg-pink-600' },
+    { icon: FaYoutube, href: contactInfo.youtube, color: 'hover:bg-red-600' },
+    { icon: FaTwitter, href: contactInfo.twitter, color: 'hover:bg-blue-400' },
+  ];
 
   return (
     <section id="contact" className="py-20 lg:py-28 bg-white dark:bg-navy-900 relative">
@@ -51,26 +82,7 @@ export default function Contact({ setToast }) {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left - Info */}
           <div className="space-y-8">
-            {[
-              {
-                icon: FaMapMarkerAlt,
-                title: 'Address',
-                content: 'Assembly of God Church High School\nBadkadih, Jharkhand',
-                color: 'from-red-400 to-red-600',
-              },
-              {
-                icon: FaPhone,
-                title: 'Phone',
-                content: '+91 98765 43210\n+91 87654 32100',
-                color: 'from-green-400 to-green-600',
-              },
-              {
-                icon: FaEnvelope,
-                title: 'Email',
-                content: 'info@agchsbadkadih.edu.in\nadmissions@agchsbadkadih.edu.in',
-                color: 'from-blue-400 to-blue-600',
-              },
-            ].map((item, i) => (
+            {contactCards.map((item, i) => (
               <motion.div
                 key={item.title}
                 className="flex items-start gap-4 p-6 rounded-2xl bg-navy-50 dark:bg-navy-800/50 border border-gray-100 dark:border-navy-700 card-hover"
@@ -109,14 +121,9 @@ export default function Contact({ setToast }) {
                 Follow Us
               </h4>
               <div className="flex gap-3">
-                {[
-                  { icon: FaFacebook, href: '#', color: 'hover:bg-blue-600' },
-                  { icon: FaInstagram, href: '#', color: 'hover:bg-pink-600' },
-                  { icon: FaYoutube, href: '#', color: 'hover:bg-red-600' },
-                  { icon: FaTwitter, href: '#', color: 'hover:bg-blue-400' },
-                ].map((social) => (
+                {socialLinks.map((social, i) => (
                   <motion.a
-                    key={social.href}
+                    key={i}
                     href={social.href}
                     className={`w-12 h-12 bg-white dark:bg-navy-800 rounded-xl flex items-center justify-center text-navy-500 dark:text-gold-400 shadow-md ${social.color} hover:text-white transition-all duration-300`}
                     whileHover={{ scale: 1.1, rotate: 5 }}

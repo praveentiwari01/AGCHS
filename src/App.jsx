@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { DataProvider } from './context/DataContext';
+import { DataProvider, useData } from './context/DataContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -20,7 +20,9 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import EditSection from './pages/EditSection';
 
-function HomePage({ darkMode, setDarkMode, toast, setToast, loading }) {
+function HomePageContent({ darkMode, setDarkMode, toast, setToast }) {
+  const { loading } = useData();
+
   return (
     <>
       <Loading isLoading={loading} />
@@ -42,6 +44,17 @@ function HomePage({ darkMode, setDarkMode, toast, setToast, loading }) {
   );
 }
 
+function HomePage({ darkMode, setDarkMode, toast, setToast }) {
+  return (
+    <HomePageContent
+      darkMode={darkMode}
+      setDarkMode={setDarkMode}
+      toast={toast}
+      setToast={setToast}
+    />
+  );
+}
+
 function DisclosurePage({ darkMode, setDarkMode }) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-navy-900 transition-colors duration-300">
@@ -58,7 +71,6 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(
     () => localStorage.getItem('theme') === 'dark'
   );
-  const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState({ show: false, message: '' });
 
   useEffect(() => {
@@ -70,11 +82,6 @@ export default function App() {
       localStorage.setItem('theme', 'light');
     }
   }, [darkMode]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <AuthProvider>
@@ -90,7 +97,6 @@ export default function App() {
                   setDarkMode={setDarkMode}
                   toast={toast}
                   setToast={setToast}
-                  loading={loading}
                 />
               }
             />

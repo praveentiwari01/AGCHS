@@ -11,6 +11,7 @@ import {
   FaTwitter,
   FaArrowUp,
 } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 
 const quickLinks = [
   { name: 'Home', href: '#home' },
@@ -45,9 +46,14 @@ function handleFooterNavClick(e, href, navigate) {
 
 export default function Footer() {
   const navigate = useNavigate();
+  const { schoolData } = useData();
+  const { schoolProfile, contactInfo } = schoolData;
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const yearEstablished = schoolProfile.yearOfEstablishment || '1985';
 
   return (
     <footer className="relative bg-navy-900 dark:bg-navy-950 text-white pt-16 pb-6 overflow-hidden">
@@ -69,7 +75,7 @@ export default function Footer() {
               </div>
               <div>
                 <h3 className="font-bold text-gold-400">AGCHS Badkadih</h3>
-                <p className="text-xs text-white/60">Est. 1985</p>
+                <p className="text-xs text-white/60">Est. {yearEstablished}</p>
               </div>
             </div>
             <p className="text-sm text-white/70 leading-relaxed">
@@ -114,15 +120,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-sm text-white/70">
                 <FaMapMarkerAlt className="text-gold-400 mt-1 shrink-0" />
-                Assembly of God Church High School, Badkadih, Jharkhand
+                {contactInfo.address.replace('\n', ', ')}
               </li>
               <li className="flex items-center gap-3 text-sm text-white/70">
                 <FaPhone className="text-gold-400 shrink-0" />
-                +91 98765 43210
+                {contactInfo.phone1}
               </li>
               <li className="flex items-center gap-3 text-sm text-white/70">
                 <FaEnvelope className="text-gold-400 shrink-0" />
-                info@agchsbadkadih.edu.in
+                {contactInfo.email1}
               </li>
             </ul>
           </motion.div>
@@ -140,13 +146,13 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               {[
-                { icon: FaFacebook, href: '#', color: 'hover:bg-blue-600' },
-                { icon: FaInstagram, href: '#', color: 'hover:bg-pink-600' },
-                { icon: FaYoutube, href: '#', color: 'hover:bg-red-600' },
-                { icon: FaTwitter, href: '#', color: 'hover:bg-blue-400' },
-              ].map((social) => (
+                { icon: FaFacebook, href: contactInfo.facebook, color: 'hover:bg-blue-600' },
+                { icon: FaInstagram, href: contactInfo.instagram, color: 'hover:bg-pink-600' },
+                { icon: FaYoutube, href: contactInfo.youtube, color: 'hover:bg-red-600' },
+                { icon: FaTwitter, href: contactInfo.twitter, color: 'hover:bg-blue-400' },
+              ].map((social, i) => (
                 <motion.a
-                  key={social.href}
+                  key={i}
                   href={social.href}
                   className={`w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 ${social.color} hover:text-white transition-all duration-300`}
                   whileHover={{ scale: 1.1, rotate: 5 }}
@@ -162,7 +168,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-white/50 text-center sm:text-left">
-            &copy; {new Date().getFullYear()} Assembly of God Church High School Badkadih. All
+            &copy; {new Date().getFullYear()} {schoolProfile.schoolName} Badkadih. All
             rights reserved.
           </p>
           <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2 sm:gap-4 text-xs text-white/40">

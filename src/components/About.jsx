@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import {
-  FaBookOpen,
   FaBullseye,
   FaStar,
   FaQuoteLeft,
   FaGraduationCap,
 } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -30,6 +30,10 @@ function AnimatedSection({ children, className }) {
 
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { schoolData } = useData();
+  const { aboutSection, managementDetails, schoolProfile } = schoolData;
+
+  const yearsLegacy = Math.floor((new Date().getFullYear() - parseInt(schoolProfile.yearOfEstablishment || 1985)) / 5) * 5;
 
   return (
     <section id="about" className="py-20 lg:py-28 bg-white dark:bg-navy-900 relative">
@@ -40,11 +44,11 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <AnimatedSection className="text-center mb-16">
           <span className="text-gold-500 font-semibold text-sm uppercase tracking-widest">
-            About Us
+            {aboutSection.subtitle}
           </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-500 dark:text-white mt-3">
-            Know Our{' '}
-            <span className="gradient-text">School</span>
+            {aboutSection.title.split(' ').slice(0, -1).join(' ')}{' '}
+            <span className="gradient-text">{aboutSection.title.split(' ').slice(-1)}</span>
           </h2>
           <div className="w-20 h-1 gold-gradient rounded-full mx-auto mt-4" />
         </AnimatedSection>
@@ -54,7 +58,7 @@ export default function About() {
             <div className="relative overflow-hidden">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80"
+                  src={aboutSection.schoolImageUrl}
                   alt="School Building"
                   className="w-full h-full object-cover"
                 />
@@ -65,7 +69,7 @@ export default function About() {
                 animate={{ rotate: [0, 5, 0, -5, 0] }}
                 transition={{ duration: 6, repeat: Infinity }}
               >
-                <span className="text-2xl sm:text-3xl font-bold">35+</span>
+                <span className="text-2xl sm:text-3xl font-bold">{yearsLegacy}+</span>
                 <span className="text-[10px] font-medium">Years</span>
               </motion.div>
             </div>
@@ -74,21 +78,14 @@ export default function About() {
           <AnimatedSection>
             <div className="space-y-6">
               <h3 className="text-2xl sm:text-3xl font-bold text-navy-500 dark:text-white">
-                A Legacy of{' '}
-                <span className="text-gold-500">Excellence & Faith</span>
+                {aboutSection.legacyTitle.split(' & ')[0]}{' '}
+                <span className="text-gold-500">& {aboutSection.legacyTitle.split(' & ')[1]}</span>
               </h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Founded in 1985, Assembly of God Church High School Badkadih has
-                been a beacon of quality education in the region. Affiliated with
-                the Jharkhand Academic Council (JAC), our school provides a
-                holistic learning experience combining academic rigor with moral
-                and spiritual development.
+                {aboutSection.description1}
               </p>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                Our dedicated faculty, state-of-the-art facilities, and
-                nurturing environment ensure that every student reaches their
-                full potential. We believe in shaping not just scholars, but
-                responsible citizens with strong values.
+                {aboutSection.description2}
               </p>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-4">
                 <div className="flex -space-x-2">
@@ -102,7 +99,7 @@ export default function About() {
                   ))}
                 </div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  50+ Dedicated Teachers
+                  {aboutSection.teacherCount}
                 </p>
               </div>
             </div>
@@ -117,22 +114,22 @@ export default function About() {
           {[
             {
               icon: FaBullseye,
-              title: 'Our Mission',
-              desc: 'To provide quality education rooted in Christian values, fostering academic excellence, character development, and service to community.',
+              title: aboutSection.missionTitle,
+              desc: aboutSection.missionDesc,
               color: 'from-navy-500 to-navy-700',
               bg: 'bg-navy-50 dark:bg-navy-800/50',
             },
             {
               icon: FaStar,
-              title: 'Our Vision',
-              desc: 'To be a leading educational institution that nurtures future leaders equipped with knowledge, skills, and moral integrity.',
+              title: aboutSection.visionTitle,
+              desc: aboutSection.visionDesc,
               color: 'from-gold-400 to-gold-600',
               bg: 'bg-gold-50 dark:bg-gold-500/10',
             },
             {
               icon: FaGraduationCap,
-              title: 'Academic Excellence',
-              desc: 'Consistent top results in JAC board examinations with a focus on STEM, humanities, and co-curricular development.',
+              title: aboutSection.academicTitle,
+              desc: aboutSection.academicDesc,
               color: 'from-green-400 to-green-600',
               bg: 'bg-green-50 dark:bg-green-500/10',
             },
@@ -169,7 +166,7 @@ export default function About() {
             <div className="relative flex flex-col lg:flex-row gap-8 items-center">
               <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl overflow-hidden border-4 border-gold-400 shadow-xl shrink-0">
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80"
+                  src={aboutSection.principalImageUrl}
                   alt="Principal"
                   className="w-full h-full object-cover"
                 />
@@ -177,15 +174,11 @@ export default function About() {
               <div className="flex-1">
                 <FaQuoteLeft className="text-gold-400 text-3xl mb-4 opacity-60" />
                 <p className="text-white/90 text-base lg:text-lg leading-relaxed mb-6 italic">
-                  "At AGCHS Badkadih, we believe every child is unique and
-                  possesses immense potential. Our mission is to create an
-                  environment where students discover their strengths, develop
-                  critical thinking, and grow into compassionate leaders who
-                  will make a positive difference in society."
+                  {aboutSection.principalQuote}
                 </p>
                 <div>
                   <h4 className="text-white font-bold text-lg">
-                    Mahasagari Toppo~
+                    {managementDetails.principalName}
                   </h4>
                   <p className="text-gold-400 text-sm">Principal</p>
                 </div>

@@ -5,6 +5,7 @@ import { HiMenu, HiX } from 'react-icons/hi';
 import { FaSchool, FaUserGraduate, FaUserPlus, FaUserShield } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -20,7 +21,13 @@ export default function Navbar({ darkMode, setDarkMode }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { isAdmin } = useAuth();
+  const { schoolData } = useData();
   const navigate = useNavigate();
+
+  const { schoolProfile } = schoolData;
+  const shortName = schoolProfile.schoolName
+    ? schoolProfile.schoolName.split(' ').map(w => w[0]).join('.').replace(/\./g, '') + ' Badkadih'
+    : 'A.G.C.H.S Badkadih';
 
   const handleNavClick = (e, href) => {
     if (href.startsWith('#/')) {
@@ -71,10 +78,10 @@ export default function Navbar({ darkMode, setDarkMode }) {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-sm lg:text-base font-bold text-navy-500 dark:text-white leading-tight">
-                A.G.C.H.S Badkadih
+                {shortName}
               </h1>
               <p className="text-[10px] text-gold-600 dark:text-gold-400 font-medium">
-                Assembly of God Church High School
+                {schoolProfile.schoolName}
               </p>
             </div>
           </motion.a>

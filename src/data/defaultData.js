@@ -14,6 +14,24 @@ const defaultData = {
     seniorSecondaryStreams: 'Science, Commerce, Arts',
   },
 
+  aboutSection: {
+    subtitle: 'About Us',
+    title: 'Know Our School',
+    legacyTitle: 'A Legacy of Excellence & Faith',
+    description1: 'Founded in 1985, Assembly of God Church High School Badkadih has been a beacon of quality education in the region. Affiliated with the Jharkhand Academic Council (JAC), our school provides a holistic learning experience combining academic rigor with moral and spiritual development.',
+    description2: 'Our dedicated faculty, state-of-the-art facilities, and nurturing environment ensure that every student reaches their full potential. We believe in shaping not just scholars, but responsible citizens with strong values.',
+    teacherCount: '50+ Dedicated Teachers',
+    principalQuote: '"At AGCHS Badkadih, we believe every child is unique and possesses immense potential. Our mission is to create an environment where students discover their strengths, develop critical thinking, and grow into compassionate leaders who will make a positive difference in society."',
+    missionTitle: 'Our Mission',
+    missionDesc: 'To provide quality education rooted in Christian values, fostering academic excellence, character development, and service to community.',
+    visionTitle: 'Our Vision',
+    visionDesc: 'To be a leading educational institution that nurtures future leaders equipped with knowledge, skills, and moral integrity.',
+    academicTitle: 'Academic Excellence',
+    academicDesc: 'Consistent top results in JAC board examinations with a focus on STEM, humanities, and co-curricular development.',
+    schoolImageUrl: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80',
+    principalImageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80',
+  },
+
   managementDetails: {
     managementName: 'Assembly of God Church, Jharkhand',
     chairmanManager: 'Rev. Dr. Samuel Kerketta',

@@ -8,6 +8,7 @@ import {
   FaChalkboardTeacher,
   FaUserShield,
 } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -20,6 +21,14 @@ const fadeUp = {
 
 export default function Hero() {
   const navigate = useNavigate();
+  const { schoolData } = useData();
+  const { schoolProfile, admissionInfo, stats } = schoolData;
+
+  const heroStats = [
+    { value: `${Math.floor((new Date().getFullYear() - parseInt(schoolProfile.yearOfEstablishment || 1985)) / 5) * 5}+`, label: 'Years Legacy' },
+    { value: `${stats.find(s => s.label === 'Total Students')?.value || 1200}${stats.find(s => s.label === 'Total Students')?.suffix || '+'}`, label: 'Students' },
+    { value: `${stats.find(s => s.label === 'Teachers')?.value || 50}${stats.find(s => s.label === 'Teachers')?.suffix || '+'}`, label: 'Teachers' },
+  ];
 
   return (
     <section
@@ -63,7 +72,7 @@ export default function Hero() {
             >
               <span className="w-2 h-2 bg-gold-500 rounded-full animate-pulse" />
               <span className="text-xs font-semibold text-gold-700 dark:text-gold-400 uppercase tracking-wider">
-                Admissions Open for 2026-27
+                {admissionInfo.badge || 'Admissions Open for 2026-27'}
               </span>
             </motion.div>
 
@@ -75,7 +84,7 @@ export default function Hero() {
               custom={1}
             >
               <span className="text-navy-500 dark:text-white">
-                Assembly of God Church
+                {schoolProfile.schoolName || 'Assembly of God Church'}
               </span>
               <br />
               <span className="gradient-text">High School Badkadih</span>
@@ -89,7 +98,7 @@ export default function Hero() {
               custom={2}
             >
               Empowering students with knowledge, faith, and character since
-              1985. Where academic excellence meets holistic development in a
+              {schoolProfile.yearOfEstablishment || 1985}. Where academic excellence meets holistic development in a
               nurturing Christian environment.
             </motion.p>
 
@@ -124,11 +133,7 @@ export default function Hero() {
               animate="visible"
               custom={4}
             >
-              {[
-                { value: '35+', label: 'Years Legacy' },
-                { value: '1200+', label: 'Students' },
-                { value: '50+', label: 'Teachers' },
-              ].map((stat) => (
+                {heroStats.map((stat) => (
                 <div key={stat.label}>
                   <p className="text-2xl font-bold text-navy-500 dark:text-gold-400">
                     {stat.value}
@@ -194,7 +199,7 @@ export default function Hero() {
                       color: 'from-purple-400 to-purple-600',
                       onClick: () => navigate('/admin/login'),
                     },
-                  ].map((item, i) => (
+                  ].map((item) => (
                     <motion.button
                       key={item.label}
                       onClick={item.onClick}

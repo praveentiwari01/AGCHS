@@ -7,6 +7,7 @@ import {
   FaArrowRight,
   FaClipboardList,
 } from 'react-icons/fa';
+import { useData } from '../context/DataContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -15,6 +16,8 @@ const fadeUp = {
 
 export default function Admission() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const { schoolData } = useData();
+  const { admissionInfo } = schoolData;
 
   return (
     <section
@@ -57,23 +60,16 @@ export default function Admission() {
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-500/20 rounded-full mb-6">
                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                 <span className="text-xs font-semibold text-green-700 dark:text-green-400 uppercase">
-                  Admissions Open for 2026-27
+                  {admissionInfo.badge}
                 </span>
               </div>
 
               <h3 className="text-2xl font-bold text-navy-500 dark:text-white mb-4">
-                Why Choose AGCHS?
+                {admissionInfo.whyChooseTitle}
               </h3>
 
               <ul className="space-y-4">
-                {[
-                  'Highly qualified and experienced faculty',
-                  'Modern teaching methods with smart classrooms',
-                  'Focus on holistic development',
-                  'Excellent academic results',
-                  'Safe and disciplined environment',
-                  'Affordable fee structure',
-                ].map((item, i) => (
+                {admissionInfo.whyChooseList.map((item, i) => (
                   <motion.li
                     key={i}
                     className="flex items-start gap-3"
@@ -104,11 +100,10 @@ export default function Admission() {
                 </div>
                 <div>
                   <h4 className="font-bold text-navy-500 dark:text-white mb-1">
-                    Academic Session 2026-27
+                    {admissionInfo.sessionTitle}
                   </h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Classes from Nursery to Class X | Registration in progress
-                    for the upcoming academic year.
+                    {admissionInfo.sessionDescription}
                   </p>
                 </div>
               </div>
