@@ -26,10 +26,10 @@ const sections = [
   { key: 'nonTeachingStaff', title: 'Non-Teaching Staff', desc: 'Support staff table', icon: FaUsers, color: 'from-orange-400 to-orange-600' },
   { key: 'feeStructure', title: 'Fee Structure', desc: 'Class-wise fee breakdown', icon: FaMoneyBillWave, color: 'from-emerald-400 to-emerald-600' },
   { key: 'documents', title: 'Documents & Certificates', desc: 'Recognition, safety certificates', icon: FaFileAlt, color: 'from-red-400 to-red-600' },
-  { key: 'academicInfo', title: 'Academic Information', desc: 'Curriculum, timings, exams', icon: FaBookOpen, color: 'from-cyan-400 to-cyan-600' },
+  { key: 'academicInfo', title: 'Academic Information', desc: 'Curriculum, timings, exams', icon: FaBookOpen, color: 'from-gold-400 to-gold-600' },
   { key: 'facilities', title: 'Facilities', desc: 'Facility cards on homepage', icon: FaCogs, color: 'from-blue-400 to-blue-600' },
   { key: 'galleryImages', title: 'Gallery Images', desc: 'School photos and events', icon: FaImages, color: 'from-pink-400 to-pink-600' },
-  { key: 'stats', title: 'Statistics', desc: 'Counter numbers on homepage', icon: FaChartBar, color: 'from-amber-400 to-amber-600' },
+  { key: 'stats', title: 'Statistics', desc: 'Counter numbers on homepage', icon: FaChartBar, color: 'from-gold-400 to-gold-600' },
   { key: 'contactInfo', title: 'Contact Info', desc: 'Address, phones, emails, social', icon: FaPhoneAlt, color: 'from-teal-400 to-teal-600' },
   { key: 'admissionInfo', title: 'Admission Section', desc: 'Why choose, session info', icon: FaClipboardList, color: 'from-indigo-400 to-indigo-600' },
 ];

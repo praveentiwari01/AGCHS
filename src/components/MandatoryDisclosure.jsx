@@ -249,7 +249,7 @@ export default function MandatoryDisclosure() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.2}>
-            <DisclosureCard icon={FaBookOpen} title="Academic Information" color="from-cyan-400 to-cyan-600">
+            <DisclosureCard icon={FaBookOpen} title="Academic Information" color="from-gold-400 to-gold-600">
               <InfoRow label="Curriculum" value={academicInfo.curriculum} />
               <InfoRow label="Classes Run" value={academicInfo.classesRun} />
               <InfoRow label="Medium of Instruction" value={academicInfo.mediumOfInstruction} />
@@ -302,7 +302,7 @@ export default function MandatoryDisclosure() {
           </AnimatedSection>
 
           <AnimatedSection delay={0.2}>
-            <DisclosureCard icon={FaFutbol} title="Facilities Overview" color="from-amber-400 to-amber-600">
+            <DisclosureCard icon={FaFutbol} title="Facilities Overview" color="from-gold-400 to-gold-600">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
                   { icon: FaFlask, label: 'Science Labs' },
